@@ -57,22 +57,48 @@ function updateScreen() {
 
 function toggleUpgrades() {
     upgradesAvailable = true;
-    console.log("Upgrades available!")
     updateUpgrades();
 }
 
-function buyUpgrade(change, amount) {
-    if (moneyCount < amount) {
-        alertElement.innerHTML = "Not enough money to upgrade"
+function buyUpgrade(id) {
+    const upgradeIndex = upgrades.findIndex(upgrade => upgrade.id === id);
+
+    const upgrade = upgrades[upgradeIndex];
+
+    if (moneyCount < upgrade.cost) {
+        alertElement.innerHTML = "Not enough money to upgrade";
         return;
     }
-    
-    switch(change) {
-        
+
+    moneyCount -= upgrade.cost;
+    console.log(upgrade);
+
+    switch (upgrade.effectType) {
+        case "string":
+            stringAmount *= upgrade.effectAmount;
+            break;
+        case 2:
+            stringMaterials += 100;
+            break;
+        case 3:
+            sellAmount *= 2;
+            break;
+        default:
+            alertElement.innerHTML = "Invalid upgrade ID";
+            return;
     }
-    updateScreen()
+
+    upgrades.splice(upgradeIndex, 1); // Remove from available upgrades
+    updateUpgrades();
+    updateScreen();
 }
 
 function updateUpgrades() {
-    upgradeListElement.innerHTML = upgrades.map(upgrade => `<li>${upgrade.cost}: ${upgrade.description}</li>`).join("");
+    upgradeListElement.innerHTML = upgrades.map(upgrade => 
+        `<li id='upgrade${upgrade.id}'>
+            <label for='upgrade${upgrade.name}'></label>
+            <button onclick='buyUpgrade(${upgrade.id})'>$${upgrade.cost}</button>
+            ${upgrade.description}
+        </li>`
+    ).join("");
 }

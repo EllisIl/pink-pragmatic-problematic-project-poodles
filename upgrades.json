@@ -1,0 +1,12 @@
+{
+    "upgrades": [
+        {
+            "id": 1,
+            "name": "Thin Strings",
+            "cost": 1000,
+            "description": "Make more string from materials",
+            "effectType": "string",
+            "effectAmount": 2
+        }
+    ]
+}
