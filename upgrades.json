@@ -3,7 +3,7 @@
         {
             "id": 1,
             "name": "Thin Strings",
-            "cost": 1000,
+            "cost": 50,
             "description": "Make more string from materials",
             "effectType": "string",
             "effectAmount": 2
