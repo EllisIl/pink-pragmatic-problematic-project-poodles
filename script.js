@@ -12,7 +12,7 @@ let stringMaterials = 100;
 let sellAmount = 2;
 let currentUpgrade = 0;
 let upgradesAvailable = false;
-
+// Jadon was here lol
 init();
 
 async function init() {
