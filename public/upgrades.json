@@ -1,0 +1,20 @@
+{
+    "upgrades": [
+        {
+            "id": 1,
+            "name": "Thin Strings",
+            "cost": 300,
+            "description": "Make more string from materials",
+            "effectType": "string",
+            "effectAmount": 2
+        },
+        {
+            "id": 2,
+            "name": "Online Store",
+            "cost": 700,
+            "description": "Sell your string on an online platform",
+            "effectType": 2,
+            "effectAmount": 2
+        }
+    ]
+}

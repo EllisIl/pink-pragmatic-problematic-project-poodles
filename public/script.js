@@ -9,7 +9,7 @@ let moneyCount = 0;
 let stringCount = 0;
 let stringAmount = 1;
 let stringMaterials = 100;
-let sellAmount = 2;
+let sellAmount = 3;
 let currentUpgrade = 0;
 let upgradesAvailable = false;
 
@@ -55,6 +55,17 @@ function updateScreen() {
 
 }
 
+function buyMaterials(amount) {
+    if (moneyCount < amount * 100) {
+        alertElement.innerHTML = "Not enough money to buy materials";
+        return;
+    }
+    
+    moneyCount -= amount * 100;
+    stringMaterials += amount * 100;
+    updateScreen();
+}
+
 function toggleUpgrades() {
     upgradesAvailable = true;
     updateUpgrades();
@@ -78,7 +89,7 @@ function buyUpgrade(id) {
             stringAmount *= upgrade.effectAmount;
             break;
         case 2:
-            stringMaterials += 100;
+            sellAmount *= upgrade.effectAmount;
             break;
         case 3:
             sellAmount *= 2;
