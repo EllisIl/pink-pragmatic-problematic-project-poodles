@@ -14,7 +14,7 @@ let sellAmount = 3;
 let autoSellRate = 1; // Amount of string sold per interval
 let autoSellInterval = 1000; // Time in milliseconds (5s)
 let upgradesAvailable = false;
-
+// Jadon was here lol
 init();
 
 // Initialize the game, fetch upgrades, and start auto-selling
