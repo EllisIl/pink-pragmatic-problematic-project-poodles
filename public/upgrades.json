@@ -1,0 +1,36 @@
+{
+    "upgrades": [
+        {
+            "id": 1,
+            "name": "Thin Strings",
+            "cost": 300,
+            "description": "Make more string from materials",
+            "effectType": "string",
+            "effectAmount": 2
+        },
+        {
+            "id": 2,
+            "name": "Online Store",
+            "cost": 700,
+            "description": "Increase value of strings",
+            "effectType": 2,
+            "effectAmount": 2
+        },
+        {
+            "id": 3,
+            "name": "Advanced AI",
+            "cost": 1500,
+            "description": "Automatically optimize string production",
+            "effectType": 1,
+            "effectAmount": 3
+        },
+        {
+            "id": 4,
+            "name": "Advanced Materials",
+            "cost": 2500,
+            "description": "Use advanced materials for string production",
+            "effectType": 3,
+            "effectAmount": 2
+        }
+    ]
+}

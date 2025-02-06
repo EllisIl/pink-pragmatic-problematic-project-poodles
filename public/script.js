@@ -5,94 +5,116 @@ const alertElement = document.getElementById("alerts");
 const upgradeListElement = document.getElementById("upgradeList");
 let upgrades = [];
 
-let moneyCount = 0;
+// Game variables
+let money = 0;
 let stringCount = 0;
-let stringAmount = 1;
+let stringStorage = 1;
 let stringMaterials = 100;
-let sellAmount = 2;
-let currentUpgrade = 0;
+let sellAmount = 3;
+let autoSellRate = 1; // Amount of string sold per interval
+let autoSellInterval = 1000; // Time in milliseconds (5s)
 let upgradesAvailable = false;
 // Jadon was here lol
 init();
 
+// Initialize the game, fetch upgrades, and start auto-selling
 async function init() {
     const upgradesList = await fetch('./upgrades.json').then(response => response.json());
     upgrades = upgradesList.upgrades;
     console.log(upgrades);
+    startAutoSell(); // Start automatic selling
 }
 
+// Manually produce string if materials are available
 function addString() {
     if (stringMaterials <= 0) {
-        alertElement.innerHTML = "No materials available"
+        alertElement.innerHTML = "No materials available";
         return;
     }
-
-    stringCount += stringAmount;
+    stringCount += stringStorage;
     stringMaterials--;
-
-    updateScreen()
+    updateScreen();
 }
-function sellString() {
-    if (stringCount < stringAmount) {
-        alertElement.innerHTML = "Not enough string to sell"
-        return;
+
+// Automatically sell strings over time
+function autoSellString() {
+    if (stringCount >= autoSellRate) {
+        stringCount -= autoSellRate;
+        money += sellAmount * autoSellRate;
+        updateScreen();
     }
-    
-    stringCount -= 1;
-    moneyCount += sellAmount;
-
-    updateScreen()
 }
+
+// Start the automatic selling process at a fixed interval
+function startAutoSell() {
+    setInterval(autoSellString, autoSellInterval);
+}
+
+// Update the game display
 function updateScreen() {
-    alertElement.innerHTML = ""
+    alertElement.innerHTML = "";
     stringElement.textContent = stringCount;
     stringStockElement.textContent = stringMaterials;
-    moneyElement.textContent = `$${moneyCount}`;
+    moneyElement.textContent = `$${money}`;
 
-    if (moneyCount > 50 && !upgradesAvailable) {
+    // Enable upgrades if enough money is available
+    if (money > 100 && !upgradesAvailable) {
         toggleUpgrades();
     }
-
 }
 
+// Purchase additional string materials
+function buyMaterials(amount) {
+    if (money < amount * 100) {
+        alertElement.innerHTML = "Not enough money to buy materials";
+        return;
+    }
+    money -= amount * 100;
+    stringMaterials += amount * 100;
+    updateScreen();
+}
+
+// Enable and display available upgrades
 function toggleUpgrades() {
     upgradesAvailable = true;
     updateUpgrades();
 }
 
+// Purchase an upgrade and apply its effects
 function buyUpgrade(id) {
     const upgradeIndex = upgrades.findIndex(upgrade => upgrade.id === id);
-
     const upgrade = upgrades[upgradeIndex];
 
-    if (moneyCount < upgrade.cost) {
+    if (money < upgrade.cost) {
         alertElement.innerHTML = "Not enough money to upgrade";
         return;
     }
 
-    moneyCount -= upgrade.cost;
-    console.log(upgrade);
+    money -= upgrade.cost;
 
+    // Apply upgrade effects based on type
     switch (upgrade.effectType) {
         case "string":
-            stringAmount *= upgrade.effectAmount;
+            stringStorage *= upgrade.effectAmount;
             break;
         case 2:
-            stringMaterials += 100;
+            sellAmount *= upgrade.effectAmount;
             break;
         case 3:
-            sellAmount *= 2;
+            autoSellRate *= 2;
             break;
         default:
             alertElement.innerHTML = "Invalid upgrade ID";
             return;
     }
 
-    upgrades.splice(upgradeIndex, 1); // Remove from available upgrades
+    // Remove purchased upgrade from available list
+    upgrades.splice(upgradeIndex, 1);
     updateUpgrades();
     updateScreen();
 }
 
+// Update the displayed upgrade list
 function updateUpgrades() {
     upgradeListElement.innerHTML = upgrades.map(upgrade => 
         `<li id='upgrade${upgrade.id}'>
