@@ -7,6 +7,23 @@
             "description": "Make more string from materials",
             "effectType": "string",
             "effectAmount": 2
+
+        },
+        {
+            "id": 2,
+            "name": "Thick Strings",
+            "cost": 200,
+            "description": "Make even more string from materials",
+            "effectType": "string",
+            "effectAmount": 3
+        }
+        ,
+        {
+            "id": 3,
+            "name": "Pet Spider",
+            "cost": 500,
+            "description": "Get some spider to make string for money",
+            "effectType": 3
         }
     ]
 }
