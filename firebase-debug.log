@@ -1,0 +1,29 @@
+[debug] [2025-02-08T01:35:26.343Z] ----------------------------------------------------------------------
+[debug] [2025-02-08T01:35:26.351Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\foard\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-02-08T01:35:26.352Z] CLI Version:   13.29.2
+[debug] [2025-02-08T01:35:26.353Z] Platform:      win32
+[debug] [2025-02-08T01:35:26.353Z] Node Version:  v20.17.0
+[debug] [2025-02-08T01:35:26.354Z] Time:          Fri Feb 07 2025 18:35:26 GMT-0700 (Mountain Standard Time)
+[debug] [2025-02-08T01:35:26.354Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-02-08T01:35:26.360Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2025-02-08T01:35:26.816Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-02-08T01:35:26.817Z] > authorizing via signed-in user (foardelijah@gmail.com)
+[debug] [2025-02-08T01:35:26.818Z] [iam] checking project cool-string-game for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-02-08T01:35:26.822Z] Checked if tokens are valid: false, expires at: 1738712316586
+[debug] [2025-02-08T01:35:26.823Z] Checked if tokens are valid: false, expires at: 1738712316586
+[debug] [2025-02-08T01:35:26.824Z] > refreshing access token with scopes: []
+[debug] [2025-02-08T01:35:26.827Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-02-08T01:35:26.827Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-02-08T01:35:26.974Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2025-02-08T01:35:26.975Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2025-02-08T01:35:27.057Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-02-08T01:35:27.058Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-02-08T01:35:27.093Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/cool-string-game:testIamPermissions [none]
+[debug] [2025-02-08T01:35:27.093Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/cool-string-game:testIamPermissions x-goog-quota-user=projects/cool-string-game
+[debug] [2025-02-08T01:35:27.094Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/cool-string-game:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-02-08T01:35:27.508Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/cool-string-game:testIamPermissions 200
+[debug] [2025-02-08T01:35:27.509Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/cool-string-game:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-02-08T01:35:27.512Z] Checked if tokens are valid: true, expires at: 1738982126059
+[debug] [2025-02-08T01:35:27.513Z] Checked if tokens are valid: true, expires at: 1738982126059
+[debug] [2025-02-08T01:35:27.515Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/cool-string-game [none]
