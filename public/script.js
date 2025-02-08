@@ -1,8 +1,26 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyChdSrPjYsP4MSaa_uMFLWrPIwWx1oZPYQ",
+    authDomain: "cool-string-game.firebaseapp.com",
+    projectId: "cool-string-game",
+    storageBucket: "cool-string-game.firebasestorage.app",
+    messagingSenderId: "412821795512",
+    appId: "1:412821795512:web:69f2b321730e465cf43a4d"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// DOM Elements
 const stringElement = document.getElementById("stringCount");
 const stringStockElement = document.getElementById("stringMaterials");
 const moneyElement = document.getElementById("moneyCount");
 const alertElement = document.getElementById("alerts");
 const upgradeListElement = document.getElementById("upgradeList");
+
 let upgrades = [];
 
 // Game variables
@@ -11,18 +29,47 @@ let stringCount = 0;
 let stringStorage = 1;
 let stringMaterials = 100;
 let sellAmount = 3;
-let autoSellRate = 1; // Amount of string sold per interval
-let autoSellInterval = 1000; // Time in milliseconds (5s)
+let autoSellRate = 1;
+let autoSellInterval = 1000;
 let upgradesAvailable = false;
-// Jadon was here lol
+
 init();
 
-// Initialize the game, fetch upgrades, and start auto-selling
+// Initialize the game and load data
 async function init() {
+    await loadGameData();
     const upgradesList = await fetch('./upgrades.json').then(response => response.json());
     upgrades = upgradesList.upgrades;
-    console.log(upgrades);
-    startAutoSell(); // Start automatic selling
+    startAutoSell();
+}
+
+// Save game data to Firestore when button is clicked
+async function saveGameData() {
+    const gameData = {
+        money,
+        stringCount,
+        stringMaterials
+    };
+
+    await setDoc(doc(db, "game", "player1"), gameData);
+    console.log("Game data saved!");
+}
+
+// Load game data from Firestore
+async function loadGameData() {
+    const docRef = doc(db, "game", "player1");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        money = data.money;
+        stringCount = data.stringCount;
+        stringMaterials = data.stringMaterials;
+        updateScreen();
+        console.log("Game data loaded!");
+    } else {
+        console.log("No saved game data found.");
+    }
 }
 
 // Manually produce string if materials are available
@@ -45,7 +92,7 @@ function autoSellString() {
     }
 }
 
-// Start the automatic selling process at a fixed interval
+// Start automatic selling at a fixed interval
 function startAutoSell() {
     setInterval(autoSellString, autoSellInterval);
 }
@@ -57,7 +104,6 @@ function updateScreen() {
     stringStockElement.textContent = stringMaterials;
     moneyElement.textContent = `$${money}`;
 
-    // Enable upgrades if enough money is available
     if (money > 100 && !upgradesAvailable) {
         toggleUpgrades();
     }
@@ -80,7 +126,7 @@ function toggleUpgrades() {
     updateUpgrades();
 }
 
-// Purchase an upgrade and apply its effects
+// Purchase an upgrade and apply effects
 function buyUpgrade(id) {
     const upgradeIndex = upgrades.findIndex(upgrade => upgrade.id === id);
     const upgrade = upgrades[upgradeIndex];
@@ -92,7 +138,6 @@ function buyUpgrade(id) {
 
     money -= upgrade.cost;
 
-    // Apply upgrade effects based on type
     switch (upgrade.effectType) {
         case "string":
             stringStorage *= upgrade.effectAmount;
@@ -108,7 +153,6 @@ function buyUpgrade(id) {
             return;
     }
 
-    // Remove purchased upgrade from available list
     upgrades.splice(upgradeIndex, 1);
     updateUpgrades();
     updateScreen();
@@ -124,3 +168,9 @@ function updateUpgrades() {
         </li>`
     ).join("");
 }
+
+
+window.addString = addString;
+window.buyMaterials = buyMaterials;
+window.saveGameData = saveGameData;
+window.buyUpgrade = buyUpgrade;
