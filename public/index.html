@@ -26,6 +26,7 @@
 
     <h3>Game Controls:</h3>
     <button onclick="saveGameData()">Save Game</button> <!-- Save Button -->
+    <button onclick="loadGameData()">Load Game</button> <!-- Load Button -->
 
     <div id="alerts"></div>
 
@@ -33,5 +34,23 @@
         <h3>Upgrades:</h3>
         <ul id="upgradeList"></ul>
     </div>
+
+    <div class="register">
+        <h3>Create Account:</h3>
+        <input type="email" id="registerEmail" placeholder="Email">
+        <input type="password" id="registerPassword" placeholder="Password">
+        <button onclick="createAccount()">Create Account</button>
+        <div id="registerMessage"></div>
+    </div>
+    
+    <div class="login">
+        <h3>Login:</h3>
+        <input type="email" id="username" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <button onclick="logout()">Logout</button>
+        <div id="errorMessage"></div>
+    </div>
+    
 </body>
 </html>
