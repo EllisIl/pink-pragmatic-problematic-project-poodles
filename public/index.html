@@ -8,6 +8,31 @@
     <link rel="stylesheet" href="string.css">
 </head>
 <body>
+    <div class="navbar">
+        <div class="dropdown">
+            <button>Account</button>
+            <div class="dropdown-content">
+                <div class="login">
+                    <h3>Login:</h3>
+                    <input type="email" id="username" placeholder="Email">
+                    <input type="password" id="password" placeholder="Password">
+                    <button onclick="login()">Login</button>
+                    <button onclick="logout()" hidden>Logout</button>
+                    <div id="errorMessage"></div>
+                </div>
+                <h2>OR</h2>
+                <div class="register">
+                    <h3>Create Account:</h3>
+                    <input type="email" id="registerEmail" placeholder="Email">
+                    <input type="password" id="registerPassword" placeholder="Password">
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+                    <button onclick="createAccount()">Create Account</button>
+                    <div id="registerMessage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <h2>Money:</h2>
     <div id="moneyCount">$0</div>
 
@@ -25,31 +50,14 @@
     <button onclick="buyMaterials(3)">$300 - x300</button>
 
     <h3>Game Controls:</h3>
-    <button onclick="saveGameData()">Save Game</button> <!-- Save Button -->
-    <button onclick="loadGameData()">Load Game</button> <!-- Load Button -->
+    <button onclick="saveGameData()">Save Game</button>
+    <button onclick="loadGameData()">Load Game</button>
 
     <div id="alerts"></div>
 
     <div class="upgrades">
         <h3>Upgrades:</h3>
         <ul id="upgradeList"></ul>
-    </div>
-
-    <div class="register">
-        <h3>Create Account:</h3>
-        <input type="email" id="registerEmail" placeholder="Email">
-        <input type="password" id="registerPassword" placeholder="Password">
-        <button onclick="createAccount()">Create Account</button>
-        <div id="registerMessage"></div>
-    </div>
-    
-    <div class="login">
-        <h3>Login:</h3>
-        <input type="email" id="username" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="login()">Login</button>
-        <button onclick="logout()">Logout</button>
-        <div id="errorMessage"></div>
     </div>
     
 </body>
